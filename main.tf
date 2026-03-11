@@ -62,14 +62,6 @@ ingress {
   }
 }
 
-# Instance names
-locals {
-  instance_names = [
-    "jenkins-server",
-    "k8s-master",
-    "k8s-worker"
-  ]
-}
 
 resource "aws_instance" "server" {
   count         = 3
