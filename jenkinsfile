@@ -18,7 +18,7 @@ sh 'mvn clean package'
 
 stage('Build Docker Image') {
 steps {
-sh 'docker build -t ShriyahUN/java-app:latest .'
+sh 'docker build -t shriyahun/java-app:latest .'
 }
 }
 
@@ -29,7 +29,7 @@ usernameVariable: 'USER',
 passwordVariable: 'PASS')]) {
 
 sh 'docker login -u $USER -p $PASS'
-sh 'docker push ShriyahUN/java-app:latest'
+sh 'docker push shriyahun/java-app:latest'
 
 }
 }
