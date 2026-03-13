@@ -6,7 +6,7 @@ stages {
 
 stage('Checkout') {
 steps {
-git 'git@github.com:ShriyahUN/terraform-ec2-project.git'
+git branch: 'main', url: 'git@github.com:ShriyahUN/terraform-ec2-project.git'
 }
 }
 
