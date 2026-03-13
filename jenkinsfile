@@ -1,0 +1,47 @@
+pipeline {
+
+agent any
+
+stages {
+
+stage('Checkout') {
+steps {
+git 'https://github.com/RajkumarMarimuthu/devops-capstone-project.git'
+}
+}
+
+stage('Build Maven') {
+steps {
+sh 'mvn clean package'
+}
+}
+
+stage('Build Docker Image') {
+steps {
+sh 'docker build -t rajkumarmarimuthu/java-app:latest .'
+}
+}
+
+stage('Push Docker Image') {
+steps {
+withCredentials([usernamePassword(credentialsId: 'dockerhub-creds',
+usernameVariable: 'USER',
+passwordVariable: 'PASS')]) {
+
+sh 'docker login -u $USER -p $PASS'
+sh 'docker push rajkumarmarimuthu/java-app:latest'
+
+}
+}
+}
+
+stage('Deploy to Kubernetes') {
+steps {
+sh 'kubectl apply -f k8s/deployment.yaml'
+sh 'kubectl apply -f k8s/service.yaml'
+}
+}
+
+}
+
+}
